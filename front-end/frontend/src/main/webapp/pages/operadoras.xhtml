@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p ="http://primefaces.org/ui">
+<h:head>
+	<link href="#{facesContext.externalContext.requestContextPath}/resources/css/estilos.css" rel="stylesheet" type="text/css" />
+	
+</h:head>
+  <h:body>
+	<p:messages id="messages" showDetail="true" autoUpdate="true"/>
+	<p:growl id="msgGlobal" life="3000" />
+	
+	<p:commandButton value="Novo" onclick="PF('dialogoOperadoraNovo').show();" />
+	
+	<p:dialog widgetVar="dialogoOperadoraNovo"
+		width="425"
+		height="379"
+		closable="true"
+		draggable="false"
+		resizable="false"
+		modal="true" appendTo="@(body)"
+		style="border-radius: 0px;background: #EEF2F3;"
+		showHeader="false"
+		>
+		
+		<h:form id="formularioOperadoraNovo" >
+            <h:panelGrid id="pnlHeader" columns="2" width="100%" styleClass="painelCabecalho">
+                <p:outputLabel value="Adicionar Operadora" style="font-size: 25px;" />
+                <p:commandButton  type="button" icon="ui-icon-close" process="@this" styleClass="botaoFechar" 
+                	onclick="PF('dialogoOperadoraNovo').hide();"/>
+            </h:panelGrid>
+
+            <h:panelGrid id="pnlOpeNovo" columns="1" styleClass="painelGridCampos" >
+                <p:outputLabel for="txtNomeOpeNovo" value="Operadora"/>
+                <p:inputText id="txtNomeOpeNovo" size="34" maxlength="50"  placeholder="Escreva o nome da Operadora" 
+	                value="#{MBOperadora.operadora.nome}" 
+	                required="true" requiredMessage="Escreva o nome da Operadora!"
+	                styleClass="barraInput"></p:inputText>
+            </h:panelGrid>
+
+            <h:panelGrid id="pnlUrlNovo" columns="1" styleClass="painelGridCampos">
+                <p:outputLabel for="txtUrlOpeNovo" value="URL do Portal"/>
+                <p:inputText id="txtUrlOpeNovo" size="34" maxlength="50" placeholder="Coloque aqui o URL"
+	                value="#{MBOperadora.operadora.url}" 
+	                required="true" requiredMessage="Coloque a URL" 
+	                styleClass="barraInput"></p:inputText>
+            </h:panelGrid>
+            
+            <h:panelGrid id="pnlBotaoSalvar" columns="1" style="width:100%;padding-top: 1.5em;">
+                <p:commandButton id="botaoSalvarOperadora" value="Salvar" styleClass="botaoADireita" 
+	                actionListener="#{MBOperadora.novo}" 
+	                update=":msgGlobal :formularioOperadoraNovo:pnlOpeNovo"
+	                oncomplete="PF('dialogoOperadoraNovo').show();"
+	                />
+            </h:panelGrid>
+
+        </h:form>
+	</p:dialog>
+  </h:body>    
+</html>
+    
